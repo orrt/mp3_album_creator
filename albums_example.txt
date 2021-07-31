@@ -1,0 +1,45 @@
+*********************************
+
+title: Yes yes, go go 
+artist: The groove sisters
+year: 2021
+genre: Disco
+
+track: Let us Party
+track: This is fun
+track: Keep moving
+track: Why oh why
+track: still grooving
+track: Nice to know you are dancing too
+track: Time to go home
+
+*********************************
+
+title: How low can you go
+artist: Low guy
+year: 2021
+genre: Chillout
+
+track: Slow down, take it easy
+track: Relaxing on Monday
+track: Relaxing on Tuesday
+track: Chill don't kill
+track: Down, down
+
+*********************************
+
+title: Let's party 
+artist: Down, Down
+year: 2021
+genre: Funk
+
+track: Disco
+track: Party hard
+track: move your feet to the beat
+track: left to right
+track: Can't get enough
+track: Keep it going
+track: Yes yes, go go
+track: chill out 
+
+*********************************
