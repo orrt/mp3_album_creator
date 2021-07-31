@@ -47,11 +47,13 @@ from  AppKit import NSSpeechSynthesizer
 import Foundation
 import os, time, sys, subprocess
 
-ALBUMKEYS = ["title", "artist", "year", "genre", "track"]
+
 
 ##################################
 # PARSER
-def parse_file(filename, keys):
+NEEDED_KEYS = ["title", "artist", "year", "genre", "track"] # these keys must be in an album for successful parsing
+
+def parse_file(filename):
 	# open file and parse
 	albums = []
 	album = {}
@@ -68,7 +70,13 @@ def parse_file(filename, keys):
 		if "*****" in l: 
 			album_cnt = album_cnt + 1
 			if (bool(album) == True):
-				# todo: make sure all the albumkeys where used!! otherwise throw error
+				try: 
+					# get rid of keys "track 1", "track 2" etc. and only keep one element "track"
+					used_keys = list(set([x if not x.startswith("track") else "track" for x in album.keys()]))
+					if (set(NEEDED_KEYS) != set(used_keys)):
+						raise IOError()	
+				except: 
+					raise IOError('Parser error in line ' + str(lcnt) + ' (or before) of file ' + filename + '. Key(s) missing.')
 				albums.append(album)
 			album = {}
 			track_cnt = 0
@@ -84,7 +92,7 @@ def parse_file(filename, keys):
 				tagval = l.split(": ") 
 				tag = tagval[0]
 				value = tagval[1].strip()
-				if tag in keys:
+				if tag in NEEDED_KEYS:
 					if tag == "track":
 						track_cnt = track_cnt + 1
 						album[tag + " " + str(track_cnt)] = value
@@ -163,12 +171,12 @@ def main():
 		file = sys.argv[1]
 		# todo: check if file exits
 
-	albums = parse_file(file, ALBUMKEYS)
+	albums = parse_file(file)
 
 	output_dir = os.path.dirname(os.path.realpath(__file__))
 
-	for album in albums:
-		create_album(output_dir, album)
+	# for album in albums:
+	# 	create_album(output_dir, album)
 
 	# todo: add progessbar for creating albums
 
